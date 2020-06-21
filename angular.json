@@ -1,0 +1,47 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "ngx-mat-datefns-date-adapter": {
+      "projectType": "library",
+      "root": "projects/ngx-mat-datefns-date-adapter",
+      "sourceRoot": "projects/ngx-mat-datefns-date-adapter/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-mat-datefns-date-adapter/tsconfig.lib.json",
+            "project": "projects/ngx-mat-datefns-date-adapter/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-mat-datefns-date-adapter/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-mat-datefns-date-adapter/src/test.ts",
+            "tsConfig": "projects/ngx-mat-datefns-date-adapter/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-mat-datefns-date-adapter/karma.conf.js",
+            "codeCoverageExclude": ["**/test.ts"]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-mat-datefns-date-adapter/tsconfig.lib.json",
+              "projects/ngx-mat-datefns-date-adapter/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "ngx-mat-datefns-date-adapter"
+}

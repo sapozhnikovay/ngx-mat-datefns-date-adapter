@@ -1,0 +1,33 @@
+{
+  "name": "ngx-mat-datefns-date-adapter",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Alexey Sapozhnikov",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sapozhnikovay/ngx-mat-datefns-date-adapter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sapozhnikovay/ngx-mat-datefns-date-adapter/issues"
+  },
+  "homepage": "https://github.com/sapozhnikovay/ngx-mat-datefns-date-adapter",
+  "keywords": [
+    "angular",
+    "javascript",
+    "typescript",
+    "angular-material",
+    "date adapter",
+    "datepicker",
+    "date-fns"
+  ],
+  "peerDependencies": {
+    "@angular/common": "^9.1.11",
+    "@angular/core": "^9.1.11",
+    "@angular/material": "^9.2.4",
+    "date-fns": "^2.14.0"
+  },
+  "dependencies": {
+    "tslib": "^1.10.0"
+  }
+}
