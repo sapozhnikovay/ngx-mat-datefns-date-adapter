@@ -317,6 +317,12 @@ describe('NgxDateFnsDateAdapter', () => {
     );
   });
 
+  it('should throw when attempting to load null locale', () => {
+    expect(() => adapter.setLocale(null)).toThrowError(
+      /Cannot load locale: null/
+    );
+  });
+
   it('should add years', () => {
     expect(adapter.addCalendarYears(new Date(2017, JAN, 1), 1)).toEqual(
       new Date(2018, JAN, 1)
