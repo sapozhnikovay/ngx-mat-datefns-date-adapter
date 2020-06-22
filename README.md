@@ -3,6 +3,7 @@
 ![NPM](https://img.shields.io/npm/l/ngx-mat-datefns-date-adapter)
 ![npm](https://img.shields.io/npm/v/ngx-mat-datefns-date-adapter)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/ngx-mat-datefns-date-adapter)
+![Codecov](https://img.shields.io/codecov/c/github/sapozhnikovay/ngx-mat-datefns-date-adapter)
 
 This library provides a custom DateAdapter for the Angular Material Datepicker component using the `date-fns` library.
 
