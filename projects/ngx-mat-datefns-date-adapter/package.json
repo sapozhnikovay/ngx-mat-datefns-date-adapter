@@ -1,6 +1,6 @@
 {
   "name": "ngx-mat-datefns-date-adapter",
-  "version": "11.0.0",
+  "version": "11.0.1",
   "description": "",
   "author": "Alexey Sapozhnikov",
   "license": "MIT",
@@ -22,9 +22,9 @@
     "date-fns"
   ],
   "peerDependencies": {
-    "@angular/common": "^10.2.4",
-    "@angular/core": "^10.2.4",
-    "@angular/material": "^10.2.7",
+    "@angular/common": "^11.0.0",
+    "@angular/core": "^11.0.0",
+    "@angular/material": "^11.0.0",
     "date-fns": "^2.14.0"
   },
   "dependencies": {
