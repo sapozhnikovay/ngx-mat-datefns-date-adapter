@@ -1,25 +1,25 @@
 import { LOCALE_ID } from '@angular/core';
-import { async, inject, TestBed } from '@angular/core/testing';
-import {
-  DateAdapter,
-  DEC,
-  FEB,
-  JAN,
-  MAR,
-  MAT_DATE_LOCALE,
-} from '@angular/material/core';
+import { inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { NgxDateFnsDateAdapter } from './ngx-mat-datefns-date-adapter';
 import { NgxMatDateFnsDateModule } from './ngx-mat-datefns-date-adapter.module';
+
+const JAN = 0,
+  FEB = 1,
+  MAR = 2,
+  DEC = 11;
 
 describe('NgxDateFnsDateAdapter', () => {
   let adapter: NgxDateFnsDateAdapter;
   let assertValidDate: (d: Date | null, valid: boolean) => void;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [NgxMatDateFnsDateModule],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [NgxMatDateFnsDateModule],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(inject([DateAdapter], (dateAdapter: NgxDateFnsDateAdapter) => {
     adapter = dateAdapter;
@@ -499,12 +499,14 @@ describe('NgxDateFnsDateAdapter', () => {
 describe('NgxDateFnsDateAdapter with MAT_DATE_LOCALE override', () => {
   let adapter: NgxDateFnsDateAdapter;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [NgxMatDateFnsDateModule],
-      providers: [{ provide: MAT_DATE_LOCALE, useValue: 'da' }],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [NgxMatDateFnsDateModule],
+        providers: [{ provide: MAT_DATE_LOCALE, useValue: 'da' }],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(inject([DateAdapter], (d: NgxDateFnsDateAdapter) => {
     adapter = d;
@@ -528,12 +530,14 @@ describe('NgxDateFnsDateAdapter with MAT_DATE_LOCALE override', () => {
 describe('NgxDateFnsDateAdapter with MAT_DATE_LOCALE override', () => {
   let adapter: NgxDateFnsDateAdapter;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [NgxMatDateFnsDateModule],
-      providers: [{ provide: MAT_DATE_LOCALE, useValue: 'invalid' }],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [NgxMatDateFnsDateModule],
+        providers: [{ provide: MAT_DATE_LOCALE, useValue: 'invalid' }],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(inject([DateAdapter], (d: NgxDateFnsDateAdapter) => {
     adapter = d;
@@ -549,12 +553,14 @@ describe('NgxDateFnsDateAdapter with MAT_DATE_LOCALE override', () => {
 describe('NgxDateFnsDateAdapter with LOCALE_ID override', () => {
   let adapter: NgxDateFnsDateAdapter;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [NgxMatDateFnsDateModule],
-      providers: [{ provide: LOCALE_ID, useValue: 'da' }],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [NgxMatDateFnsDateModule],
+        providers: [{ provide: LOCALE_ID, useValue: 'da' }],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(inject([DateAdapter], (d: NgxDateFnsDateAdapter) => {
     adapter = d;
