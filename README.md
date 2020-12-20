@@ -9,7 +9,7 @@ This library provides a custom DateAdapter for the Angular Material Datepicker c
 
 - Includes all locales provided by date-fns.
 - Parses datetime using customizable formats.
-- Built with Angular 9
+- Compatible with Angular 9/10/11
 - Includes 100% tests coverage
 
 ## Demo
