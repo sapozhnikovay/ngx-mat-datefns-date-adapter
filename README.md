@@ -14,7 +14,10 @@ This library provides a custom DateAdapter for the Angular Material Datepicker c
 
 ## Demo
 
-An example can be found on [Stackblitz](https://stackblitz.com/edit/angular-ngx-mat-datefns-date-adapter)
+An example can be found on Stackblitz for:
+- [Angular 9](https://stackblitz.com/edit/angular-ngx-mat-datefns-date-adapter)
+- [Angular 10](https://stackblitz.com/edit/angular-ngx-mat-datefns-date-adapter-a10)
+- [Angular 11](https://stackblitz.com/edit/angular-ngx-mat-datefns-date-adapter-a11)
 
 ## Installation
 
