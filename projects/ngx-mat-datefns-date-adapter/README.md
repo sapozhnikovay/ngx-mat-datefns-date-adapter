@@ -15,6 +15,12 @@ An example can be found on [Stackblitz](https://stackblitz.com/edit/angular-ngx-
 
 `npm i ngx-mat-datefns-date-adapter`
 
+| Angular Version | Package Version |
+| :-------------: | :-------------: |
+|        9        |      9.X.X      |
+|       10        |     10.X.X      |
+|       11        |     11.X.X      |
+
 ## Usage
 
 1. Register the `NgxMatDateFnsDateModule` in your app module.
