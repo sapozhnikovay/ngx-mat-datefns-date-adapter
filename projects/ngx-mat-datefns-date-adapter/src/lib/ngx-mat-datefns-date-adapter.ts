@@ -204,7 +204,7 @@ export class NgxDateFnsDateAdapter extends DateAdapter<Date> {
   parse(value: any, parseFormat: any): Date | null {
     if (value) {
       if (typeof value === 'string') {
-        return parse(value, parseFormat, new Date(), {
+        return parse(value.trim(), parseFormat, new Date(), {
           locale: this._dateFnsLocale,
         });
       }
