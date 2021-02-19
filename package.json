@@ -1,6 +1,6 @@
 {
   "name": "ngx-mat-datefns-date-adapter",
-  "version": "10.0.0",
+  "version": "10.0.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
