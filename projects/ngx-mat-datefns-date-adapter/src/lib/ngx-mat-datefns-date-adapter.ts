@@ -1,4 +1,4 @@
-import { Inject, Optional, Injectable } from '@angular/core';
+import { Inject, Injectable, Optional } from '@angular/core';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import {
   addDays,
@@ -6,18 +6,19 @@ import {
   addYears,
   format,
   getDate,
+  getDay,
   getDaysInMonth,
   getMonth,
   getYear,
+  Locale,
   parse,
+  parseISO,
   setDay,
   setMonth,
   toDate,
-  Locale,
-  parseISO,
-  getDay,
 } from 'date-fns';
-import * as locales from 'date-fns/locale';
+import { enUS } from 'date-fns/esm/locale';
+import { NGX_MAT_DATEFNS_LOCALES } from './ngx-mat-datefns-locales';
 
 function range(start: number, end: number): number[] {
   const arr: number[] = [];
@@ -31,36 +32,43 @@ function range(start: number, end: number): number[] {
 @Injectable()
 export class NgxDateFnsDateAdapter extends DateAdapter<Date> {
   private _dateFnsLocale: Locale;
-  private getLocale = (localeCode) => {
-    if (!localeCode) {
-      throw new Error('localeCode should have a value');
+  private getLocale = (localeCodeOrLocale: string | Locale): Locale => {
+    if (localeCodeOrLocale && (localeCodeOrLocale as Locale).code) {
+      return localeCodeOrLocale as Locale;
     }
-    const localeKey = Object.keys(locales).find(
-      (key) => locales[key].code === localeCode
+    if (!this.locales || !this.locales.length) {
+      throw new Error('locales array does not provided or is empty');
+    }
+    const locale = this.locales.find(
+      (item) => item.code === localeCodeOrLocale
     );
-    if (!localeKey) {
-      throw new Error(`locale '${localeCode}' does not exist`);
+    if (!locale) {
+      throw new Error(`locale '${localeCodeOrLocale}' does not exist`);
     }
-    return locales[localeKey];
+    return locale;
   };
 
-  constructor(@Optional() @Inject(MAT_DATE_LOCALE) dateLocale: string) {
+  constructor(
+    @Optional() @Inject(MAT_DATE_LOCALE) dateLocale: string,
+    @Inject(NGX_MAT_DATEFNS_LOCALES) private locales: Locale[]
+  ) {
     super();
 
     try {
-      this.setLocale(dateLocale);
+      this.setLocale(dateLocale || enUS);
     } catch (err) {
-      this.setLocale('en-US');
+      this.setLocale(enUS);
     }
   }
 
-  setLocale(locale: string) {
-    try {
-      this._dateFnsLocale = this.getLocale(locale);
-      super.setLocale(locale);
-    } catch (err) {
-      throw new Error('Cannot load locale: ' + locale);
+  setLocale(locale: string | Locale) {
+    if (!locale) {
+      throw new Error(
+        'setLocale should be called with the string locale code or date-fns Locale object'
+      );
     }
+    this._dateFnsLocale = this.getLocale(locale);
+    super.setLocale(locale);
   }
 
   addCalendarDays(date: Date, days: number): Date {

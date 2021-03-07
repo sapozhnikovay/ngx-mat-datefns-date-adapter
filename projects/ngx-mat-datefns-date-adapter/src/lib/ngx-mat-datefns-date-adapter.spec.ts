@@ -1,13 +1,12 @@
 import { LOCALE_ID } from '@angular/core';
 import { inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
+import { da, ja } from 'date-fns/esm/locale';
 import { NgxDateFnsDateAdapter } from './ngx-mat-datefns-date-adapter';
 import { NgxMatDateFnsDateModule } from './ngx-mat-datefns-date-adapter.module';
+import { NGX_MAT_DATEFNS_LOCALES } from './ngx-mat-datefns-locales';
 
-const JAN = 0,
-  FEB = 1,
-  MAR = 2,
-  DEC = 11;
+const [JAN, FEB, MAR, DEC] = [0, 1, 2, 11];
 
 describe('NgxDateFnsDateAdapter', () => {
   let adapter: NgxDateFnsDateAdapter;
@@ -109,7 +108,7 @@ describe('NgxDateFnsDateAdapter', () => {
   });
 
   it('should get month names in a different locale', () => {
-    adapter.setLocale('ja');
+    adapter.setLocale(ja);
     expect(adapter.getMonthNames('long')).toEqual([
       '1月',
       '2月',
@@ -199,7 +198,7 @@ describe('NgxDateFnsDateAdapter', () => {
   });
 
   it('should get day of week names in a different locale', () => {
-    adapter.setLocale('ja');
+    adapter.setLocale(ja);
     expect(adapter.getDayOfWeekNames('long')).toEqual([
       '日曜日',
       '月曜日',
@@ -299,7 +298,7 @@ describe('NgxDateFnsDateAdapter', () => {
   });
 
   it('should format with a different locale', () => {
-    adapter.setLocale('ja');
+    adapter.setLocale(ja);
     expect(adapter.format(new Date(2017, JAN, 1), 'yyyy/d/d')).toEqual(
       '2017/1/1'
     );
@@ -311,15 +310,15 @@ describe('NgxDateFnsDateAdapter', () => {
     );
   });
 
-  it('should throw when attempting to load invalid locale', () => {
+  it('should throw when attempting to set locale via string without providing NGX_MAT_DATEFNS_LOCALES token', () => {
     expect(() => adapter.setLocale('invalid')).toThrowError(
-      /Cannot load locale: invalid/
+      /locales array does not provided or is empty/
     );
   });
 
   it('should throw when attempting to load null locale', () => {
     expect(() => adapter.setLocale(null)).toThrowError(
-      /Cannot load locale: null/
+      /setLocale should be called with the string locale code or date-fns Locale object/
     );
   });
 
@@ -503,7 +502,10 @@ describe('NgxDateFnsDateAdapter with MAT_DATE_LOCALE override', () => {
     waitForAsync(() => {
       TestBed.configureTestingModule({
         imports: [NgxMatDateFnsDateModule],
-        providers: [{ provide: MAT_DATE_LOCALE, useValue: 'da' }],
+        providers: [
+          { provide: MAT_DATE_LOCALE, useValue: 'da' },
+          { provide: NGX_MAT_DATEFNS_LOCALES, useValue: [da] },
+        ],
       }).compileComponents();
     })
   );
@@ -557,7 +559,10 @@ describe('NgxDateFnsDateAdapter with LOCALE_ID override', () => {
     waitForAsync(() => {
       TestBed.configureTestingModule({
         imports: [NgxMatDateFnsDateModule],
-        providers: [{ provide: LOCALE_ID, useValue: 'da' }],
+        providers: [
+          { provide: LOCALE_ID, useValue: 'da' },
+          { provide: NGX_MAT_DATEFNS_LOCALES, useValue: [da] },
+        ],
       }).compileComponents();
     })
   );
@@ -578,5 +583,62 @@ describe('NgxDateFnsDateAdapter with LOCALE_ID override', () => {
     ];
 
     expect(adapter.getDayOfWeekNames('long')).toEqual(expectedValue);
+  });
+});
+
+describe('NgxDateFnsDateAdapter with MAT_DATE_LOCALE override', () => {
+  let adapter: NgxDateFnsDateAdapter;
+
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [NgxMatDateFnsDateModule],
+        providers: [{ provide: MAT_DATE_LOCALE, useValue: '' }],
+      }).compileComponents();
+    })
+  );
+
+  beforeEach(inject([DateAdapter], (d: NgxDateFnsDateAdapter) => {
+    adapter = d;
+  }));
+
+  it('should load en-US locale when MAT_DATE_LOCALE is null|empty string|undefined etc ', () => {
+    expect(adapter.getMonthNames('long')).toEqual([
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ]);
+  });
+});
+
+describe('NgxDateFnsDateAdapter with NGX_MAT_DATEFNS_LOCALES set', () => {
+  let adapter: NgxDateFnsDateAdapter;
+
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [NgxMatDateFnsDateModule],
+        providers: [{ provide: NGX_MAT_DATEFNS_LOCALES, useValue: [da] }],
+      }).compileComponents();
+    })
+  );
+
+  beforeEach(inject([DateAdapter], (d: NgxDateFnsDateAdapter) => {
+    adapter = d;
+  }));
+
+  it('should throw when attempting to set locale without providing it in the NGX_MAT_DATEFNS_LOCALES token', () => {
+    expect(() => adapter.setLocale('ru')).toThrowError(
+      /locale \'ru\' does not exist/
+    );
   });
 });
