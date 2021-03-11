@@ -1,13 +1,13 @@
 {
   "name": "ngx-mat-datefns-date-adapter",
-  "version": "11.0.2",
+  "version": "11.0.3",
   "scripts": {
-    "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "build": "ng-packagr -p ./projects/ngx-mat-datefns-date-adapter/ng-package.json",
+    "test": "ng test --watch=false",
+    "test:dev": "ng test --watch=true",
+    "test:coverage": "ng test --watch=false --code-coverage=true",
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
