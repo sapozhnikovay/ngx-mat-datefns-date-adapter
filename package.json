@@ -1,6 +1,6 @@
 {
   "name": "ngx-mat-datefns-date-adapter",
-  "version": "11.0.3",
+  "version": "11.1.0",
   "scripts": {
     "start": "ng serve",
     "build": "ng-packagr -p ./projects/ngx-mat-datefns-date-adapter/ng-package.json",
