@@ -146,6 +146,34 @@ export class AppComponent {
 
 Import date-fns locales from 'date-fns/esm/locale' entrypoint. This enables tree-shaking by the Angular builder.
 
+## UTC date creation
+
+To get all selected dates in a `MatDatetimePicker` as a day start (00:00:00) in a UTC timezone, set useUtc flag in a NGX_MAT_DATEFNS_DATE_ADAPTER_OPTIONS injection token.
+
+```typescript
+import { NGX_MAT_DATEFNS_DATE_ADAPTER_OPTIONS } from 'ngx-mat-datefns-date-adapter';
+...
+
+@NgModule(
+  ...
+  providers: [
+    ...
+    {
+      provide: NGX_MAT_DATEFNS_DATE_ADAPTER_OPTIONS,
+      useValue: {
+        useUtc: true
+      }
+    },
+    ...
+  ],
+  ...
+})
+export class AppModule {}
+...
+
+
+```
+
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.

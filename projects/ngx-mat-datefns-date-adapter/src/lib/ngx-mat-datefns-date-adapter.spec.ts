@@ -1,8 +1,12 @@
 import { LOCALE_ID } from '@angular/core';
 import { inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
+import { parse, parseJSON } from 'date-fns';
 import { da, ja } from 'date-fns/esm/locale';
-import { NgxDateFnsDateAdapter } from './ngx-mat-datefns-date-adapter';
+import {
+  NgxDateFnsDateAdapter,
+  NGX_MAT_DATEFNS_DATE_ADAPTER_OPTIONS,
+} from './ngx-mat-datefns-date-adapter';
 import { NgxMatDateFnsDateModule } from './ngx-mat-datefns-date-adapter.module';
 import { NGX_MAT_DATEFNS_LOCALES } from './ngx-mat-datefns-locales';
 
@@ -640,5 +644,58 @@ describe('NgxDateFnsDateAdapter with NGX_MAT_DATEFNS_LOCALES set', () => {
     expect(() => adapter.setLocale('ru')).toThrowError(
       /locale \'ru\' does not exist/
     );
+  });
+});
+
+describe('NgxDateFnsDateAdapter with NGX_MAT_DATEFNS_DATE_ADAPTER_OPTIONS override', () => {
+  describe('use UTC', () => {
+    let adapter: NgxDateFnsDateAdapter;
+
+    beforeEach(
+      waitForAsync(() => {
+        TestBed.configureTestingModule({
+          imports: [NgxMatDateFnsDateModule],
+          providers: [
+            {
+              provide: NGX_MAT_DATEFNS_DATE_ADAPTER_OPTIONS,
+              useValue: { useUtc: true },
+            },
+          ],
+        }).compileComponents();
+      })
+    );
+
+    beforeEach(inject([DateAdapter], (d: NgxDateFnsDateAdapter) => {
+      adapter = d;
+    }));
+
+    it('should create date in UTC', () => {
+      const expectedDate = parseJSON('2017-01-02T00:00:00Z');
+      expect(adapter.createDate(2017, JAN, 2)).toEqual(expectedDate);
+    });
+
+    it('should create today in UTC', () => {
+      const today = new Date();
+      const todayUTCString = `${today.getFullYear()}-${(today.getMonth() + 1)
+        .toString()
+        .padStart(2, '0')}-${today
+        .getDate()
+        .toString()
+        .padStart(2, '0')}T00:00:00Z`;
+      const expectedDate = parseJSON(todayUTCString);
+      expect(adapter.today()).toEqual(expectedDate);
+    });
+
+    it('should parse dates to UTC', () => {
+      const expectedDate = parseJSON('2017-01-02T00:00:00Z');
+      expect(adapter.parse('1/2/2017', 'MM/dd/yyyy')).toEqual(expectedDate);
+    });
+
+    it('should return UTC date when deserializing', () => {
+      const expectedDate = parseJSON('2020-04-12T23:20:50.52Z');
+      expect(adapter.deserialize('2020-04-12T23:20:50.52Z')).toEqual(
+        expectedDate
+      );
+    });
   });
 });

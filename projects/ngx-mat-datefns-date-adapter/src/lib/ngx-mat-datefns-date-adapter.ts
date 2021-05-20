@@ -1,4 +1,4 @@
-import { Inject, Injectable, Optional } from '@angular/core';
+import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import {
   addDays,
@@ -16,9 +16,30 @@ import {
   setDay,
   setMonth,
   toDate,
+  parseJSON,
 } from 'date-fns';
+import { zonedTimeToUtc } from 'date-fns-tz/esm';
 import { enUS } from 'date-fns/esm/locale';
 import { NGX_MAT_DATEFNS_LOCALES } from './ngx-mat-datefns-locales';
+
+export interface NgxDateFnsDateAdapterOptions {
+  useUtc?: boolean;
+}
+
+export const NGX_MAT_DATEFNS_DATE_ADAPTER_OPTIONS =
+  new InjectionToken<NgxDateFnsDateAdapterOptions>(
+    'NGX_MAT_DATEFNS_DATE_ADAPTER_OPTIONS',
+    {
+      providedIn: 'root',
+      factory: NGX_MAT_DATEFNS_DATE_ADAPTER_OPTIONS_FACTORY,
+    }
+  );
+
+export function NGX_MAT_DATEFNS_DATE_ADAPTER_OPTIONS_FACTORY(): NgxDateFnsDateAdapterOptions {
+  return {
+    useUtc: false,
+  };
+}
 
 function range(start: number, end: number): number[] {
   const arr: number[] = [];
@@ -28,6 +49,8 @@ function range(start: number, end: number): number[] {
 
   return arr;
 }
+
+const UTC_TIMEZONE = 'UTC';
 
 @Injectable()
 export class NgxDateFnsDateAdapter extends DateAdapter<Date> {
@@ -50,7 +73,10 @@ export class NgxDateFnsDateAdapter extends DateAdapter<Date> {
 
   constructor(
     @Optional() @Inject(MAT_DATE_LOCALE) dateLocale: string,
-    @Inject(NGX_MAT_DATEFNS_LOCALES) private locales: Locale[]
+    @Inject(NGX_MAT_DATEFNS_LOCALES) private locales: Locale[],
+    @Optional()
+    @Inject(NGX_MAT_DATEFNS_DATE_ADAPTER_OPTIONS)
+    private options?: NgxDateFnsDateAdapterOptions
   ) {
     super();
 
@@ -112,6 +138,9 @@ export class NgxDateFnsDateAdapter extends DateAdapter<Date> {
   deserialize(value: any): Date | null {
     if (value) {
       if (typeof value === 'string') {
+        if (this.options.useUtc) {
+          return parseJSON(value);
+        }
         return parseISO(value);
       }
       if (typeof value === 'number') {
@@ -212,6 +241,12 @@ export class NgxDateFnsDateAdapter extends DateAdapter<Date> {
   parse(value: any, parseFormat: any): Date | null {
     if (value) {
       if (typeof value === 'string') {
+        if (this.options.useUtc) {
+          const d = parse(value.trim(), parseFormat, new Date(), {
+            locale: this._dateFnsLocale,
+          });
+          return zonedTimeToUtc(d, UTC_TIMEZONE);
+        }
         return parse(value.trim(), parseFormat, new Date(), {
           locale: this._dateFnsLocale,
         });
@@ -232,12 +267,17 @@ export class NgxDateFnsDateAdapter extends DateAdapter<Date> {
   }
 
   today(): Date {
-    return new Date();
+    const d = new Date();
+    return this._createDateWithOverflow(
+      d.getFullYear(),
+      d.getMonth(),
+      d.getDate()
+    );
   }
 
   /** Creates a date but allows the month and date to overflow. */
   private _createDateWithOverflow(year: number, month: number, date: number) {
-    const result = new Date(year, month, date);
+    const result = this._createDateInternal(year, month, date);
 
     // We need to correct for the fact that JS native Date treats years in range [0, 99] as
     // abbreviations for 19xx.
@@ -245,5 +285,12 @@ export class NgxDateFnsDateAdapter extends DateAdapter<Date> {
       result.setFullYear(this.getYear(result) - 1900);
     }
     return result;
+  }
+
+  private _createDateInternal(year: number, month: number, date: number): Date {
+    if (this.options.useUtc) {
+      return zonedTimeToUtc(new Date(year, month, date), UTC_TIMEZONE);
+    }
+    return new Date(year, month, date);
   }
 }

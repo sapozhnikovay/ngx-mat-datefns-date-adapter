@@ -5,7 +5,7 @@ import {
   MAT_DATE_LOCALE,
 } from '@angular/material/core';
 import { NGX_MAT_DATEFNS_DATE_FORMATS } from './mgx-mat-datefns-date-formats';
-import { NgxDateFnsDateAdapter } from './ngx-mat-datefns-date-adapter';
+import { NgxDateFnsDateAdapter, NGX_MAT_DATEFNS_DATE_ADAPTER_OPTIONS } from './ngx-mat-datefns-date-adapter';
 import { NGX_MAT_DATEFNS_LOCALES } from './ngx-mat-datefns-locales';
 
 @NgModule({
@@ -13,7 +13,7 @@ import { NGX_MAT_DATEFNS_LOCALES } from './ngx-mat-datefns-locales';
     {
       provide: DateAdapter,
       useClass: NgxDateFnsDateAdapter,
-      deps: [MAT_DATE_LOCALE, NGX_MAT_DATEFNS_LOCALES],
+      deps: [MAT_DATE_LOCALE, NGX_MAT_DATEFNS_LOCALES, NGX_MAT_DATEFNS_DATE_ADAPTER_OPTIONS],
     },
   ],
 })
