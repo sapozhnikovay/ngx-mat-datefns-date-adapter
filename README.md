@@ -1,9 +1,9 @@
 # NgxMatDatefnsDateAdapter
 
-![NPM](https://img.shields.io/npm/l/ngx-mat-datefns-date-adapter)
-![npm](https://img.shields.io/npm/v/ngx-mat-datefns-date-adapter)
-![npm bundle size](https://img.shields.io/bundlephobia/min/ngx-mat-datefns-date-adapter)
-![Codecov](https://img.shields.io/codecov/c/github/sapozhnikovay/ngx-mat-datefns-date-adapter)
+[![NPM](https://img.shields.io/npm/l/ngx-mat-datefns-date-adapter)](https://github.com/sapozhnikovay/ngx-mat-datefns-date-adapter/blob/master/LICENSE)
+[![npm](https://img.shields.io/npm/v/ngx-mat-datefns-date-adapter)](https://www.npmjs.com/package/ngx-mat-datefns-date-adapter)
+[![npm bundle size](https://img.shields.io/bundlephobia/min/ngx-mat-datefns-date-adapter)](https://bundlephobia.com/result?p=ngx-mat-datefns-date-adapter)
+[![codecov](https://codecov.io/gh/sapozhnikovay/ngx-mat-datefns-date-adapter/branch/master/graph/badge.svg)](https://codecov.io/gh/sapozhnikovay/ngx-mat-datefns-date-adapter)
 
 This library provides a custom DateAdapter for the Angular Material Datepicker component using the `date-fns` library.
 
@@ -21,7 +21,9 @@ An example can be found on Stackblitz for:
 
 ## Installation
 
-`npm i ngx-mat-datefns-date-adapter`
+`npm i --save ngx-mat-datefns-date-adapter date-fns date-fns-tz`
+
+Both `date-fns` and `date-fns-tz` libraries are peer dependencies, but required for the compilation.
 
 | Angular Version | Package Version |
 | :-------------: | :-------------: |
