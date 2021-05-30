@@ -18,7 +18,7 @@ import {
   toDate,
   parseJSON,
 } from 'date-fns';
-import { zonedTimeToUtc } from 'date-fns-tz/esm';
+import { zonedTimeToUtc } from 'date-fns-tz';
 import { enUS } from 'date-fns/esm/locale';
 import { NGX_MAT_DATEFNS_LOCALES } from './ngx-mat-datefns-locales';
 

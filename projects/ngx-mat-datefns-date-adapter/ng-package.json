@@ -6,7 +6,7 @@
     "umdModuleIds": {
       "date-fns": "dateFns",
       "date-fns/esm/locale": "locales",
-      "date-fns-tz/esm": "date-fns-tz"
+      "date-fns-tz": "date-fns-tz"
     }
   }
 }
