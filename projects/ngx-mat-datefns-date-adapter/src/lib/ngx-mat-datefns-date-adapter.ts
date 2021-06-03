@@ -180,8 +180,8 @@ export class NgxDateFnsDateAdapter extends DateAdapter<Date> {
     const formatStr = map[style];
     const date = new Date();
 
-    return range(0, 6).map((month) =>
-      format(setDay(date, month), formatStr, {
+    return range(0, 6).map((day) =>
+      format(setDay(date, day), formatStr, {
         locale: this._dateFnsLocale,
       })
     );
