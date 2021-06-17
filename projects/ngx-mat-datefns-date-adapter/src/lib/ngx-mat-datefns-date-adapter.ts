@@ -54,7 +54,8 @@ const UTC_TIMEZONE = 'UTC';
 
 @Injectable()
 export class NgxDateFnsDateAdapter extends DateAdapter<Date> {
-  private _dateFnsLocale: Locale;
+  private _dateFnsLocale!: Locale;
+
   private getLocale = (localeCodeOrLocale: string | Locale): Locale => {
     if (localeCodeOrLocale && (localeCodeOrLocale as Locale).code) {
       return localeCodeOrLocale as Locale;
@@ -138,7 +139,7 @@ export class NgxDateFnsDateAdapter extends DateAdapter<Date> {
   deserialize(value: any): Date | null {
     if (value) {
       if (typeof value === 'string') {
-        if (this.options.useUtc) {
+        if (this.options?.useUtc) {
           return parseJSON(value);
         }
         return parseISO(value);
@@ -188,7 +189,7 @@ export class NgxDateFnsDateAdapter extends DateAdapter<Date> {
   }
 
   getFirstDayOfWeek(): number {
-    return this._dateFnsLocale.options.weekStartsOn;
+    return this._dateFnsLocale.options?.weekStartsOn ?? 0;
   }
 
   getMonth(date: Date): number {
@@ -241,7 +242,7 @@ export class NgxDateFnsDateAdapter extends DateAdapter<Date> {
   parse(value: any, parseFormat: any): Date | null {
     if (value) {
       if (typeof value === 'string') {
-        if (this.options.useUtc) {
+        if (this.options?.useUtc) {
           const d = parse(value.trim(), parseFormat, new Date(), {
             locale: this._dateFnsLocale,
           });
@@ -288,7 +289,7 @@ export class NgxDateFnsDateAdapter extends DateAdapter<Date> {
   }
 
   private _createDateInternal(year: number, month: number, date: number): Date {
-    if (this.options.useUtc) {
+    if (this.options?.useUtc) {
       return zonedTimeToUtc(new Date(year, month, date), UTC_TIMEZONE);
     }
     return new Date(year, month, date);
