@@ -22,10 +22,10 @@
     "date-fns"
   ],
   "peerDependencies": {
-    "@angular/common": "^11.0.0",
-    "@angular/core": "^11.0.0",
-    "@angular/material": "^11.0.0",
-    "date-fns": "^2.14.0",
+    "@angular/common": "^12.0.0",
+    "@angular/core": "^12.0.0",
+    "@angular/material": "^12.0.0",
+    "date-fns": "^2.22.1",
     "date-fns-tz": "^1.1.4"
   },
   "dependencies": {
