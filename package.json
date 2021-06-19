@@ -1,9 +1,9 @@
 {
   "name": "ngx-mat-datefns-date-adapter",
-  "version": "11.2.1",
+  "version": "12.0.0-beta.0",
   "scripts": {
     "start": "ng serve",
-    "build": "ng-packagr -p ./projects/ngx-mat-datefns-date-adapter/ng-package.json && cp README.md LICENSE dist/ngx-mat-datefns-date-adapter",
+    "build": "ng build --configuration production && cp README.md LICENSE dist/ngx-mat-datefns-date-adapter",
     "test": "ng test --watch=false",
     "test:dev": "ng test --watch=true",
     "test:coverage": "ng test --watch=false --code-coverage=true",
