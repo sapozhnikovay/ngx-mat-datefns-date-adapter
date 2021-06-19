@@ -9,7 +9,7 @@ This library provides a custom DateAdapter for the Angular Material Datepicker c
 
 - Includes all locales provided by date-fns.
 - Parses datetime using customizable formats.
-- Compatible with Angular 9/10/11
+- Compatible with Angular 9/10/11/12
 - Includes 100% tests coverage
 
 ## Demo
@@ -30,6 +30,12 @@ Both `date-fns` and `date-fns-tz` libraries are peer dependencies, but required 
 |        9        |      9.X.X      |
 |       10        |     10.X.X      |
 |       11        |     11.X.X      |
+|       12        |     12.X.X      |
+
+Version for the Angular 12 is compiled in IVY mode and currently is in beta only.
+To install it, use `ivy` tag in npm:
+
+`npm i --save ngx-mat-datefns-date-adapter@ivy date-fns date-fns-tz`
 
 ## Usage
 
