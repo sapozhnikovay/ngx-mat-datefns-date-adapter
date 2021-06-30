@@ -19,7 +19,7 @@ import {
   parseJSON,
 } from 'date-fns';
 import { zonedTimeToUtc } from 'date-fns-tz';
-import { enUS } from 'date-fns/esm/locale';
+import { enUS } from 'date-fns/locale';
 import { NGX_MAT_DATEFNS_LOCALES } from './ngx-mat-datefns-locales';
 
 export interface NgxDateFnsDateAdapterOptions {
