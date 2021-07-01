@@ -1,7 +1,7 @@
 import { LOCALE_ID } from '@angular/core';
 import { inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
-import { parse, parseJSON } from 'date-fns';
+import { parseJSON } from 'date-fns';
 import { da, ja } from 'date-fns/esm/locale';
 import {
   NgxDateFnsDateAdapter,
@@ -31,7 +31,7 @@ describe('NgxDateFnsDateAdapter', () => {
       expect(adapter.isDateInstance(d)).not.toBeNull(
         `Expected ${d} to be a date instance`
       );
-      expect(adapter.isValid(d)).toBe(
+      expect(adapter.isValid(d as Date)).toBe(
         valid,
         `Expected ${d} to be ${valid ? 'valid' : 'invalid'},` +
           ` but was ${valid ? 'invalid' : 'valid'}`
@@ -321,6 +321,7 @@ describe('NgxDateFnsDateAdapter', () => {
   });
 
   it('should throw when attempting to load null locale', () => {
+    // @ts-expect-error - Argument of type 'Date | null' is not assignable to parameter of type 'Date'.
     expect(() => adapter.setLocale(null)).toThrowError(
       /setLocale should be called with the string locale code or date-fns Locale object/
     );

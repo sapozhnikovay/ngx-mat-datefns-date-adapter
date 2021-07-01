@@ -54,7 +54,7 @@ const UTC_TIMEZONE = 'UTC';
 
 @Injectable()
 export class NgxDateFnsDateAdapter extends DateAdapter<Date> {
-  private _dateFnsLocale: Locale;
+  private _dateFnsLocale!: Locale;
   private getLocale = (localeCodeOrLocale: string | Locale): Locale => {
     if (localeCodeOrLocale && (localeCodeOrLocale as Locale).code) {
       return localeCodeOrLocale as Locale;
