@@ -88,7 +88,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppComponent } from "./app.component";
 import { NgxMatDateFnsDateModule } from "ngx-mat-datefns-date-adapter";
-import { da, ja } from 'date-fns/esm/locale'
+import { da, ja } from 'date-fns/locale'
 
 @NgModule({
   declarations: [AppComponent],
@@ -124,12 +124,12 @@ When MAT_DATE_LOCALE and NGX_MAT_DATEFNS_LOCALES tokens are not provided, `en-US
 ## Change locale dynamically
 
 Use `setLocale()` method of the `DateAdapter`.
-In case of using `setLocale` with a string argument, target locale should be imported into NGX_MAT_DATEFNS_LOCALES array.
+In case of using `setLocale` with a string argument, target locale must be imported into NGX_MAT_DATEFNS_LOCALES array.
 
 ```typescript
 import { Component } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
-import { fr } from 'date-fns/esm/locale';
+import { fr } from 'date-fns/locale';
 
 @Component({
   selector: 'app-root',
@@ -152,7 +152,7 @@ export class AppComponent {
 
 ## ES modules and Tree-shaking
 
-Import date-fns locales from 'date-fns/esm/locale' entrypoint. This enables tree-shaking by the Angular builder.
+Import date-fns locales from 'date-fns/locale' entrypoint. This enables tree-shaking by the Angular builder. Ensure that date-fns is version 2.20.3 or newer.
 
 ## UTC date creation
 
