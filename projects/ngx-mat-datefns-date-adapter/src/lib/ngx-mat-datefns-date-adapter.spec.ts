@@ -316,7 +316,7 @@ describe('NgxDateFnsDateAdapter', () => {
 
   it('should throw when attempting to set locale via string without providing NGX_MAT_DATEFNS_LOCALES token', () => {
     expect(() => adapter.setLocale('invalid')).toThrowError(
-      /locales array does not provided or is empty/
+      /locale 'invalid' does not exist in locales array. Add it to the NGX_MAT_DATEFNS_LOCALES token./
     );
   });
 
@@ -643,7 +643,7 @@ describe('NgxDateFnsDateAdapter with NGX_MAT_DATEFNS_LOCALES set', () => {
 
   it('should throw when attempting to set locale without providing it in the NGX_MAT_DATEFNS_LOCALES token', () => {
     expect(() => adapter.setLocale('ru')).toThrowError(
-      /locale \'ru\' does not exist/
+      /locale \'ru\' does not exist in locales array. Add it to the NGX_MAT_DATEFNS_LOCALES token./
     );
   });
 });
