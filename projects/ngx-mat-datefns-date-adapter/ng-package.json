@@ -5,7 +5,7 @@
     "entryFile": "src/public-api.ts",
     "umdModuleIds": {
       "date-fns": "dateFns",
-      "date-fns/esm/locale": "locales",
+      "date-fns/locale": "locale",
       "date-fns-tz": "date-fns-tz"
     }
   }
