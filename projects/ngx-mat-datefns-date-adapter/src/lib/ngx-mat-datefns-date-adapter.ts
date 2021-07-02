@@ -61,25 +61,29 @@ export class NgxDateFnsDateAdapter extends DateAdapter<Date> {
       return localeCodeOrLocale as Locale;
     }
     if (!this.locales || !this.locales.length) {
-      throw new Error('locales array does not provided or is empty');
+      throw new Error('locales array does not provided or is empty. Provide it via the NGX_MAT_DATEFNS_LOCALES token.');
     }
     const locale = this.locales.find(
       (item) => item.code === localeCodeOrLocale
     );
     if (!locale) {
-      throw new Error(`locale '${localeCodeOrLocale}' does not exist`);
+      throw new Error(`locale '${localeCodeOrLocale}' does not exist in locales array. Add it to the NGX_MAT_DATEFNS_LOCALES token.`);
     }
     return locale;
   };
 
   constructor(
-    @Optional() @Inject(MAT_DATE_LOCALE) dateLocale: string,
-    @Inject(NGX_MAT_DATEFNS_LOCALES) private locales: Locale[],
+    @Optional() @Inject(MAT_DATE_LOCALE) dateLocale: string | null,
+    @Optional() @Inject(NGX_MAT_DATEFNS_LOCALES) private locales: Locale[] | null,
     @Optional()
     @Inject(NGX_MAT_DATEFNS_DATE_ADAPTER_OPTIONS)
     private options?: NgxDateFnsDateAdapterOptions
   ) {
     super();
+
+    if (!this.locales || this.locales.length === 0) {
+      this.locales = [enUS];
+    }
 
     try {
       this.setLocale(dateLocale || enUS);

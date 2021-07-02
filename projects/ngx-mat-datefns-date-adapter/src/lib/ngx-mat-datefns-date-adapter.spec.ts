@@ -2,7 +2,7 @@ import { LOCALE_ID } from '@angular/core';
 import { inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { parseJSON } from 'date-fns';
-import { da, ja } from 'date-fns/esm/locale';
+import { da, ja } from 'date-fns/locale';
 import {
   NgxDateFnsDateAdapter,
   NGX_MAT_DATEFNS_DATE_ADAPTER_OPTIONS,
@@ -31,8 +31,7 @@ describe('NgxDateFnsDateAdapter', () => {
       expect(adapter.isDateInstance(d)).not.toBeNull(
         `Expected ${d} to be a date instance`
       );
-      // @ts-expect-error - Argument of type 'Date | null' is not assignable to parameter of type 'Date'.
-      expect(adapter.isValid(d)).toBe(
+      expect(adapter.isValid(d as Date)).toBe(
         valid,
         `Expected ${d} to be ${valid ? 'valid' : 'invalid'},` +
           ` but was ${valid ? 'invalid' : 'valid'}`
@@ -317,7 +316,7 @@ describe('NgxDateFnsDateAdapter', () => {
 
   it('should throw when attempting to set locale via string without providing NGX_MAT_DATEFNS_LOCALES token', () => {
     expect(() => adapter.setLocale('invalid')).toThrowError(
-      /locales array does not provided or is empty/
+      /locale 'invalid' does not exist in locales array. Add it to the NGX_MAT_DATEFNS_LOCALES token./
     );
   });
 
@@ -644,7 +643,7 @@ describe('NgxDateFnsDateAdapter with NGX_MAT_DATEFNS_LOCALES set', () => {
 
   it('should throw when attempting to set locale without providing it in the NGX_MAT_DATEFNS_LOCALES token', () => {
     expect(() => adapter.setLocale('ru')).toThrowError(
-      /locale \'ru\' does not exist/
+      /locale \'ru\' does not exist in locales array. Add it to the NGX_MAT_DATEFNS_LOCALES token./
     );
   });
 });
