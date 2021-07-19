@@ -81,7 +81,10 @@ import { MatInputModule } from "@angular/material/input";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppComponent } from "./app.component";
-import { NgxMatDateFnsDateModule } from "ngx-mat-datefns-date-adapter";
+import {
+  NgxMatDateFnsDateModule,
+  NGX_MAT_DATEFNS_LOCALES
+} from "ngx-mat-datefns-date-adapter";
 import { da, ja } from 'date-fns/locale'
 
 @NgModule({
