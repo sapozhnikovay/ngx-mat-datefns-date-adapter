@@ -131,8 +131,9 @@ export class NgxDateFnsDateAdapter extends DateAdapter<Date> {
     }
 
     const result = this._createDateWithOverflow(year, month, date);
+    const monthWithOverflow = this.options?.useUtc ? result.getUTCMonth() : result.getMonth();
     // Check that the date wasn't above the upper bound for the month, causing the month to overflow
-    if (result.getMonth() !== month) {
+    if (monthWithOverflow !== month) {
       throw Error(`Invalid date "${date}" for month with index "${month}".`);
     }
 
